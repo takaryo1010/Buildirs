@@ -8,7 +8,10 @@ import (
 )
 
 func Buildirs(path string, NewFileName []string, Num int) error {
-	if len(NewFileName) == 0 {
+	fileName := NewFileName[0] // 変更: NewFileName[0]を別の変数に代入する
+	Name_Separated := strings.Split(fileName, "*")
+
+	if len(NewFileName) == 1 && len(Name_Separated) == 1 {
 		err := os.MkdirAll(NewFileName[0], 0750)
 		if err != nil {
 			return err
@@ -17,8 +20,6 @@ func Buildirs(path string, NewFileName []string, Num int) error {
 
 	}
 
-	fileName := NewFileName[0] // 変更: NewFileName[0]を別の変数に代入する
-	Name_Separated := strings.Split(fileName, "*")
 	if len(Name_Separated) == 1 {
 		fileName = fileName + "\\" + NewFileName[1]                    // 変更: ファイル名を更新する
 		NextFileName := append([]string{fileName}, NewFileName[2:]...) // 変更: 更新されたファイル名を使用して、配列を再構築する

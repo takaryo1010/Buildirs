@@ -18,7 +18,7 @@ var (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: buildirs PATH NewFileName Num \n")
+		fmt.Fprintf(os.Stderr, "Usage: buildirs NewFileName Num \n")
 		// fmt.Fprintln(os.Stderr, "This is my command.")
 		// fmt.Fprintln(os.Stderr, "Options:")
 		flag.PrintDefaults()
@@ -26,15 +26,14 @@ func main() {
 
 	flag.Parse()
 
-	if len(flag.Args()) != 3 {
+	if len(flag.Args()) != 2 {
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	path = flag.Arg(0)
-	NewFileName = flag.Arg(1)
-	Num, err := strconv.Atoi(flag.Arg(2))
-	fmt.Println(path, NewFileName, Num)
+	path = "."
+	NewFileName = flag.Arg(0)
+	Num, err := strconv.Atoi(flag.Arg(1))
 
 	if err != nil {
 		fmt.Printf("Num = int\n")
