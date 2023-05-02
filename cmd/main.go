@@ -14,33 +14,38 @@ var (
 	path        string
 	NewFileName string
 	Num         int
+	Nums        []int
 )
 
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: buildirs NewFileName Num \n")
-		// fmt.Fprintln(os.Stderr, "This is my command.")
+		fmt.Fprintln(os.Stderr, "The number of "+strconv.Quote("*")+" must match the number of numbers")
 		// fmt.Fprintln(os.Stderr, "Options:")
 		flag.PrintDefaults()
 	}
 
 	flag.Parse()
 
-	if len(flag.Args()) != 2 {
-		flag.Usage()
-		os.Exit(1)
-	}
-
 	path = "."
 	NewFileName = flag.Arg(0)
-	Num, err := strconv.Atoi(flag.Arg(1))
-
-	if err != nil {
-		fmt.Printf("Num = int\n")
+	for i := 1; i < len(flag.Args()); i++ {
+		Num, err := strconv.Atoi(flag.Arg(i))
+		Nums = append(Nums, Num)
+		if err != nil {
+			fmt.Printf("Num = int\n")
+			os.Exit(1)
+		}
+	}
+	if len(Nums) != strings.Count(NewFileName, "*") {
+		text := "The number of " + strconv.Quote("*") + " does not match the number of digits"
+		fmt.Println(text)
 		os.Exit(1)
 	}
+
 	NewFileNames := strings.Split(NewFileName, "/")
-	err = buildirs.Buildirs(path, NewFileNames, Num)
+
+	err := buildirs.Buildirs(path, NewFileNames, Nums, -1)
 	if err != nil {
 		fmt.Printf(err.Error())
 	}
