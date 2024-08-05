@@ -24,7 +24,7 @@ func main() {
 		// fmt.Fprintln(os.Stderr, "Options:")
 		flag.PrintDefaults()
 	}
-
+// コメント
 	flag.Parse()
 
 	path = "."

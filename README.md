@@ -1,4 +1,5 @@
-# Buildirs
+#
+Buildirs
 
 This was designed to be used as a command in git bash.
 ## Usage
